@@ -26,3 +26,6 @@ const Users = new mongoose.Schema({
         required: true
     }
 });
+
+const userdata = mongoose.model('userdata',Users);
+module.exports = userdata;

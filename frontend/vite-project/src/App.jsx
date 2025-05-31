@@ -12,6 +12,16 @@ function App() {
     <h1>CHAT</h1>
     <div className='chat-log'>
     </div><br></br>
+    <Router>
+      <div>
+        <Link to="/login">로그인</Link>
+        <Link to="/signin">회원가입</Link>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signin" element={<Signin />} />
+        </Routes>
+      </div>
+    </Router>
     <div className='chat-input'>
       <input type='text'></input>
       <button>전송</button>
