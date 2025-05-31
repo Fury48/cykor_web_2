@@ -3,19 +3,21 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import './App.css'
 
 import Signin from "./signin";
-import Lobby  from './lobby';
 
-function App() {
+function Lobby() {
   // useState 변수 사용하는 자리 ex) const [count, setCount] = useState(0)
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Lobby />} />
-        <Route path="/signin" element={<Signin />} />
-      </Routes>
-    </Router>
+    <>
+    <h1>CHAT</h1>
+    <div className='chat-log'>
+    </div><br></br>
+    <div className='chat-input'>
+      <input type='text'></input>
+      <button>전송</button>
+    </div>
+    </>
   );
 }
 
-export default App;
+export default Lobby;

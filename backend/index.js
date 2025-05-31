@@ -49,8 +49,3 @@ app.post("/signin", async (req, res) => {
     }
 });
 
-userdata.find().then(users => {
-    console.log( users);
-}).catch(error => {
-    console.error( error);
-});
