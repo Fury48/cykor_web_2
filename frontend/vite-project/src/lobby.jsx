@@ -9,9 +9,7 @@ function Lobby() {
 
   return (
     <>
-    <h1>CHAT</h1>
-    <div className='chat-log'>
-    </div><br></br>
+    <br></br>
     <div className='chat-input'>
       <input type='text'></input>
       <button>전송</button>

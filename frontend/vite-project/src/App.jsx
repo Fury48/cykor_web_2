@@ -9,12 +9,21 @@ function App() {
   // useState 변수 사용하는 자리 ex) const [count, setCount] = useState(0)
 
   return (
+    <>
     <Router>
+      <h1>CHAT</h1>
+      <div>
+        <Link to="/lobby"> 로비 </Link>
+        <Link to="/signin"> 회원가입 </Link>
+        <Link> 로그인 </Link>
+      </div>
       <Routes>
         <Route path="/" element={<Lobby />} />
+        <Route path="/lobby" element={<Lobby />} />
         <Route path="/signin" element={<Signin />} />
       </Routes>
     </Router>
+    </>
   );
 }
 

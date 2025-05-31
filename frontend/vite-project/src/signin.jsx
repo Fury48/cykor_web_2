@@ -15,7 +15,6 @@ function Signin() {
 
     return (
         <div>
-            <h2>회원가입</h2>
             <input type="text" placeholder="아이디" onChange={e => setid(e.target.value)} />
             <input type="password" placeholder="비밀번호" onChange={e => setpw(e.target.value)} />
             <button onClick={signin}>회원가입</button>
