@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import './App.css'
+import {jwtDecode} from "jwt-decode";
+import { Buffer } from "buffer";
 
 import Login from './login';
 import Signin from "./signin";
@@ -8,6 +10,12 @@ import Lobby  from './lobby';
 
 function App() {
   // useState 변수 사용하는 자리 ex) const [count, setCount] = useState(0)
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    const decoded = jwtDecode(token); 
+    console.log(decoded.id);
+  }
 
   return (
     <>
