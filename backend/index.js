@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
+
 require("dotenv").config();
 
 const app = express();
@@ -30,6 +32,7 @@ const Users = new mongoose.Schema({
 const userdata = mongoose.model('userdata',Users);
 module.exports = userdata;
 
+//회원가입 기능 
 app.post("/signin", async (req, res) => {
     try {
         const { id, pw } = req.body;
@@ -49,3 +52,21 @@ app.post("/signin", async (req, res) => {
     }
 });
 
+//로그인 기능 
+app.post("/login", async (req, res) => {
+    try {
+        const { id, pw } = req.body;
+
+        const user = await userdata.findOne({ id, pw }); 
+        if (!user) {
+            return res.status(400).json({ message: "아이디 또는 비밀번호가 올바르지 않습니다." });
+        }
+
+        const token = jwt.sign({ id: user.id},"bimil");
+
+        res.status(200).json({ message: "로그인 성공!", token });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "서버 오류 발생" }); 
+    }
+});
