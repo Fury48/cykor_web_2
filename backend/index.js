@@ -2,20 +2,35 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-
+const {Server} = require("socket.io");
+const http = require('http');
 require("dotenv").config();
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.listen(5001,()=>{
-    console.log("listening to port 5001");
-})
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('DB 연결 성공'))
     .catch(err => console.error( err));
+
+//소켓 연결 
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors:{
+        origin:"*"
+    }
+})
+io.on("connection", (socket)=>{
+    console.log('Connected to Server');
+    socket.on("chat",(data)=>{
+        io.emit("chat",data);
+    })
+    socket.on('disconnect',()=>{
+        console.log('Disconnected');
+    })
+})
 
 const Users = new mongoose.Schema({
     id: {
@@ -70,3 +85,8 @@ app.post("/login", async (req, res) => {
         res.status(500).json({ message: "서버 오류 발생" }); 
     }
 });
+
+
+server.listen(5001,()=>{
+    console.log("listening to port 5001");
+})
