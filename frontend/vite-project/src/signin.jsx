@@ -1,16 +1,22 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 
 function Signin() {
     const [id, setid] = useState("");
     const [pw, setpw] = useState("");
-
+    const nav = useNavigate();
     const signin = async () => {
         const res = await fetch("http://localhost:5001/signin", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id, pw }),
         });
-        alert(await res.text());
+        if (res.status == 201) {
+            alert("로그인 되었습니다.");
+            nav("/login"); 
+        } else {
+            alert(data.message);
+        }
     };
 
     return (
