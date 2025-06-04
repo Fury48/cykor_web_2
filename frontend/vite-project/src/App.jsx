@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import './App.css'
 import {jwtDecode} from "jwt-decode";
@@ -10,12 +10,20 @@ import Lobby  from './lobby';
 
 function App() {
   // useState 변수 사용하는 자리 ex) const [count, setCount] = useState(0)
-  const token = localStorage.getItem("token");
-
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  useEffect(() => {
   if (token) {
-    const decoded = jwtDecode(token); 
+    const decoded = jwtDecode(token);
     console.log(decoded.id);
-  }
+    }
+  }, [token]);
+
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    window.location.href = "/lobby";
+  };
 
   return (
     <>
@@ -25,6 +33,8 @@ function App() {
         <Link to="/lobby"> 로비 </Link>
         <Link to="/login"> 로그인 </Link>
         <Link to="/signin"> 회원가입 </Link>
+        {token && <button onClick={logout}>로그아웃</button>}
+
       </div>
       <Routes>
         <Route path="/" element={<Lobby />} />
