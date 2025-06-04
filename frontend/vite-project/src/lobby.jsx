@@ -7,19 +7,28 @@ import {jwtDecode} from "jwt-decode";
 
 const socket = io("http://localhost:5001");
 const token = localStorage.getItem("token");
-let Id = null;
 
 function Lobby() {
+    // useState 변수 사용하는 자리 ex) const [count, setCount] = useState(0)
+    const [Id, setId] = useState(""); 
+    const [chat,setChat] = useState([]);
+    const [user,setUser] = useState("");
+    const [input,setInput] = useState("");
   
-  
+  useEffect(() => {
+    const token = localStorage.getItem("token");
     if (token) {
-      const decoded = jwtDecode(token); 
-      Id = decoded.id;
+      const decoded = jwtDecode(token);
+      setId(decoded.id);
+    } else {
+      setId("익명");
     }
-  // useState 변수 사용하는 자리 ex) const [count, setCount] = useState(0)
-  const [chat,setChat] = useState([]);
-  const [user,setUser] = useState(Id);
-  const [input,setInput] = useState("");
+  }, []);
+
+  useEffect(() => {
+    setUser(Id);
+  }, [Id]);
+
   useEffect(()=>{
     socket.on("chat",(message)=>{
       setChat((prevChat) => [...prevChat,message]);
