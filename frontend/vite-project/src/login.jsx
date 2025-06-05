@@ -17,7 +17,7 @@ function Login() {
         if (res.status == 200) {
             localStorage.setItem("token", data.token);
             alert("로그인 되었습니다.");
-            nav("/"); 
+            nav("/lobby");
         } else {
             alert(data.message);
         }

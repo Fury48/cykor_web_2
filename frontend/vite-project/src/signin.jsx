@@ -11,8 +11,9 @@ function Signin() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id, pw }),
         });
+        const data = await res.json();
         if (res.status == 201) {
-            alert("로그인 되었습니다.");
+            alert("회원가입 되었습니다.");
             nav("/login"); 
         } else if (res.status == 400){
             alert("이미 존재하는 아이디입니다.")
